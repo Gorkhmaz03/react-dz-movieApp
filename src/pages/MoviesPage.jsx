@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { searchMovies } from "../services/movieService";
-import { Link } from "react-router-dom";
+import MovieList from "../components/MovieList";
 
-const Movies = () => {
+const MoviesPage = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
 
@@ -19,15 +19,9 @@ const Movies = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </div>
   );
 };
 
-export default Movies;
+export default MoviesPage;

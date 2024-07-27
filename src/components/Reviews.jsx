@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { getMovieReviews } from "../services/movieService";
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getMovieReviews(movieId).then((data) => setReviews(data.results));
   }, [movieId]);
 
+  const handleGoBack = () => {
+    navigate(location.state?.from || "/movies");
+  };
+
   return (
-    <div className="container">
-      <h1>Reviews</h1>
+    <div>
+      <button onClick={handleGoBack}>Go back</button>
+      <h2>Reviews</h2>
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>{review.content}</li>

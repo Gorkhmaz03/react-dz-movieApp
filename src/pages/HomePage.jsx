@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getTrendingMovies } from "../services/movieService";
-import { Link } from "react-router-dom";
+import MovieList from "../components/MovieList";
 
-const Home = () => {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -12,15 +12,9 @@ const Home = () => {
   return (
     <div className="container">
       <h1>Trending Movies</h1>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
